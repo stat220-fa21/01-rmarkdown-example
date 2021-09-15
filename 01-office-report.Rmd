@@ -1,0 +1,34 @@
+---
+title: "The Office"
+output: github_document
+params:
+  season: 1
+---
+
+```{r include=FALSE}
+library(tidyverse)
+library(here)
+```
+
+```{r import-data, include=FALSE}
+ratings <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-17/office_ratings.csv")
+ratings_list <- split(ratings, ratings$season)
+season <- ratings_list[[params$season]]
+```
+
+# Overview
+
+Season `r params$season` of *`r rmarkdown::metadata$title`* premiered on `r min(season$air_date)`, and had `r n_distinct(season$episode)` episodes.
+
+# Ratings
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE, fig.align='center'}
+ggplot(season, aes(x = episode, y = imdb_rating)) + 
+  geom_point() + 
+  geom_line() + 
+  labs(
+    x = "Episode", 
+    y = "IMDB rating"
+  ) +
+  expand_limits(y = 0) 
+```
