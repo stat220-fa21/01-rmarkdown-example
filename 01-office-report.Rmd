@@ -7,11 +7,10 @@ params:
 
 ```{r include=FALSE}
 library(tidyverse)
-library(here)
 ```
 
 ```{r import-data, include=FALSE}
-ratings <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-03-17/office_ratings.csv")
+ratings <- read_csv("https://stat220-fa21.github.io/data/office_ratings.csv")
 ratings_list <- split(ratings, ratings$season)
 season <- ratings_list[[params$season]]
 ```
